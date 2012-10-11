@@ -6,9 +6,9 @@ A formless validation plugin for all kinds of validation - even your own!
 Simplest use case
 ==================
 
-Consider the following markup, this will add a field which is required, has a length requirement of 4 to 16, and an error message if the field is empty:
+Consider the following markup, this will add a field which is required, has a length requirement of 4 to 16, an error message if the field is empty, and an error message (using placeholders), if the length requirement is not fulfilled:
 
-    <input type="text" id="username" data-required="true" data-lengthreq="4-16" data-msg_empty="Please enter a username" />
+    <input type="text" id="username" data-required="true" data-lengthreq="4-16" data-msg_empty="Please enter a username" data-msg_lengthreq="Please enter a username between $MINLEN$ characters, and $MAXLEN$ characters." />
 
 And you wish to validate it now. All the requirements have already been declared in the markup, so all you have to do, is make the plugin do it's magic:
 
