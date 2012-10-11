@@ -6,6 +6,12 @@ A formless validation plugin for all kinds of validation - even your own!
 Simplest use case
 ==================
 
+You need to include the jQuery library, as well as the IsEmpty plugin (quick utility function, found in the Src folder), and the actual Validator plugin.
+    
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script type="text/javascript" src="js/jQuery.IsEmpty.js"></script>
+    <script type="text/javascript" src="js/jQuery.Validator.js"></script>
+
 Consider the following markup, this will add a field which is required, has a length requirement of 4 to 16, an error message if the field is empty, and an error message (using placeholders), if the length requirement is not fulfilled:
 
     <input type="text" id="username" data-required="true" data-lengthreq="4-16" data-msg_empty="Please enter a username" data-msg_lengthreq="Please enter a username between $MINLEN$ characters, and $MAXLEN$ characters." />
