@@ -1,75 +1,16 @@
 /*
-File: jQuery.Validator.js
-Version: 1.2.9
-Author: Jeff Hansen
-jQuery: Tested with v1.7.2
-Description: Formless validation of input elements
-Usage: Use .Validate() on a single (or collection of)
-jQuery elements to validate them. 
-
-Parameters:
-- [object] config: Configuration Object:
-    - [bool] returnBool: Return a bool or an object. 
-        The object will contain valid and invalid fields.
-
-    - [string] errorClass: Class(es) to be added when a field
-        is invalid.
-
-    - [bool] required: Are these fields required?
-
-    - [bool] useInlineErrors: If true, the first error of each
-        field will be printed in the fields value.
-
-    - [string] invalidChars: String of invalid characters, besides the ones in the
-        input field's data.
-
-    - [int] minLength: Minimum length required for all elements.
-        If an element has explicitly specified a min. length, 
-        the explicit value is used.
-
-    - [int] maxLength: Same applies to maxLength as to minLength
-
-    - [string/object] noInlineErrors: Selector/collection of elements 
-       that wont display inline errors
-
-    - [string] msg_empty: Empty Field error message
-
-    - [string] msg_lengthreq: Length Requirements error message
-
-    - [string] msg_invalidchars: Invalid Characters error message
-
-    - [string] msg_regex: No RegEx match error message
-
-    - [object] customChecks: An object array of functions for custom checks.
-        Return true if it passed validation, false if not. The function takes 2 arguments:
-         - [object] input: The current field being validated. This is for you to validate upon.
-         - [string] errorMessage: If false is returned, what error should be used?
-
-    - [function] onFieldValidated(field, passed, invalidObject) 
-        Callback function that gets called once per field validation.
-        "passed" represents its validation result. True if the field 
-        passed validation, false if not. If passed is false, an 
-        invalidInput is also passed.
-        - [object] field: jQuery object representing the field that was
-            being validated.
-
-        - [bool] passed: Boolean value representing the fields validation result.
-
-        - [object] invalidInput: If passed is false, an invalidInput is also
-            passed, containing all the validation messages for that field, as
-            well as the field itself.
-
-Return:
-- [bool/object] True/false, or Object - depending on the configuration.
-    - [bool] valid: Was all inputs valid?
-
-    - [object] validInputs: Collection of inputs that passed validation.
-
-    - [object] invalidInputs: Collection of inputs that failed validation.
-        - [array of string] messages: Array of error messages
-
-        - [object] elem: jQuery Input Field
+	File: jQuery.Validator.js
+	Version: 1.3.1
+	Author: Jeff Hansen (Jeffijoe) - Livesys.com
+	jQuery: Tested with v1.8.2
+	Description: Formless validation of input elements
+	Usage: Use .Validate() on a single (or collection of)
+	jQuery elements to validate them. Pass an optional object
+	for customization. See the GitHub Repo for demos, as well
+	as parameter explanation: 
+	https://github.com/Livesys/jQuery-Validator
 */
+
 (function ($) {
     // The Validate Function
     jQuery.fn.Validate = function (options) {
