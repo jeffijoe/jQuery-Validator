@@ -19,3 +19,69 @@ And you wish to validate it now. All the requirements have already been declared
 This can be extended, please reffer to the demos.
 
 All the messages can be customized for each individual field, as well as for all fields at once.
+
+If you want to customize your validator even further, you can pass the Validate function a config object. This is the parameter list.
+
+
+    Parameters:
+    - [object] config: Configuration Object:
+        - [bool] returnBool: Return a bool or an object.
+        The object will contain valid and invalid fields.
+        
+        - [string] errorClass: Class(es) to be added when a field
+        is invalid.
+        
+        - [bool] required: Are these fields required?
+        
+        - [bool] useInlineErrors: If true, the first error of each
+        field will be printed in the fields value.
+        
+        - [string] invalidChars: String of invalid characters, besides the ones in the
+        input field's data.
+        
+        - [int] minLength: Minimum length required for all elements.
+        If an element has explicitly specified a min. length,
+        the explicit value is used.
+        
+        - [int] maxLength: Same applies to maxLength as to minLength
+        
+        - [string/object] noInlineErrors: Selector/collection of elements
+        that wont display inline errors
+        
+        - [string] msg_empty: Empty Field error message
+        
+        - [string] msg_lengthreq: Length Requirements error message
+        
+        - [string] msg_invalidchars: Invalid Characters error message
+        
+        - [string] msg_regex: No RegEx match error message
+        
+        - [object] customChecks: An object array of functions for custom checks.
+        Return true if it passed validation, false if not. The function takes 2 arguments:
+            - [object] input: The current field being validated. This is for you to validate upon.
+            - [string] errorMessage: If false is returned, what error should be used?
+        
+        - [function] onFieldValidated(field, passed, invalidObject)
+        Callback function that gets called once per field validation.
+        "passed" represents its validation result. True if the field
+        passed validation, false if not. If passed is false, an
+        invalidInput is also passed.
+            - [object] field: jQuery object representing the field that was
+            being validated.
+            
+            - [bool] passed: Boolean value representing the fields validation result.
+            
+            - [object] invalidObject: If passed is false, an invalidObject is also
+            passed, containing all the validation messages for that field, as
+            well as the field itself.
+    
+    Return:
+        - [bool/object] True/false, or Object - depending on the configuration.
+            - [bool] valid: Was all inputs valid?
+            
+            - [object] validInputs: Collection of inputs that passed validation.
+            
+            - [object] invalidInputs: Collection of inputs that failed validation.
+            - [array of string] messages: Array of error messages
+            
+            - [object] elem: jQuery Input Field
