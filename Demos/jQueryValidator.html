@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>jQuery.Validator Example</title>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script type="text/javascript" src="../Src/jQuery.IsEmpty.js"></script>
+    <script type="text/javascript" src="../Src/jQuery.Validator.js"></script>
+    <style type="text/css">
+        INPUT[type="text"], INPUT[type="password"]
+        {
+            width: 400px;
+            border: 1px solid #000000;
+            padding: 2px;
+        }
+        
+        INPUT.error
+        {
+            color:red;
+            border-color:red;
+        }
+        
+        .errorlabel
+        {
+            display: none;
+            color: red;
+        }
+        
+        #allerrors
+        {
+            color:red;
+            border: 1px solid red;
+            padding:20px;
+            display:none;
+        }
+        
+        FIELDSET > DIV
+        {
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <fieldset title="jQuery Validator Example">
+        <ul id="allerrors">
+        </ul>
+        <div>
+            <label for="username">
+                Desired Username</label><br />
+            <input type="text" name="username" id="username" data-required="true" data-lengthreq="4-16" data-invalidchars="\/@€%&)(=?" data-msg_empty="Please enter a username" />
+            <span class="errorlabel"></span>
+        </div>
+        <div>
+            <label for="username">
+                Desired Password</label><br />
+            <input type="password" name="password" id="password" data-required="true" data-lengthreq="6-30" data-msg_lengthreq="Your password must be between $MINLEN$ and $MAXLEN$ characters long" data-msg_empty="Please enter a password!" />
+            <span class="errorlabel"></span>
+        </div>
+        <div>
+            <label for="username">
+                E-Mail address</label><br />
+            <input type="text" name="email" id="email" data-regex="^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$" data-required="true" data-msg_regex="This is not a valid E-mail address!" />
+            <span class="errorlabel"></span>
+        </div>
+        <div>
+            <button>Submit</button>
+        </div>
+    </fieldset>
+    <script type="text/javascript">
+
+        //----
+        // NOTE:
+        // The markup can be customized however you want - the plugin only 
+        // want INPUT fields, so no form or anything is needed!
+        //----
+
+        $(function () {
+            // Bind on Click event for button
+            $("button").click(function () {
+
+                // First, hide all error labels
+                $(".errorlabel").hide();
+                // Clear error box
+                $("#allerrors").hide().children().remove();
+
+
+                // Validate!
+                var validateResult = $("INPUT").Validate({
+                    returnBool: false,                  // We want an object returned
+                    errorClass: "error",                // We want to apply our error class when invalid
+                    onFieldValidated: function (field, passed, invalidInput) { // Callback function for each field validation
+                        // ------ 
+                        // NOTE: 
+                        // Everything in this callback is not required - it's just something you
+                        // can use to display the validation messages however you like!
+
+                        // In my example, I want to list ALL errors for each element on the top of
+                        // the page, as well as show a label displaying the first error for each field, 
+                        // to the right of the field. The beauty of this is that you can customize EVERYTHING,
+                        // down to every markup tag!
+                        // ------
+
+                        // Show error label for this field, if it didnt pass
+                        if (!passed) {
+                            // Change text and show
+                            var firstMessage = invalidInput.messages[0];
+                            field.parent().find(".errorlabel").html(firstMessage).show();
+                            // Add all errors to error list
+                            $("#allerrors").show().append('<li>The ' + field.attr("name") + ' field has the following errors:<ul id="' + field.attr("name") + '_errors"></ul></li>');
+                            var list = $("#" + field.attr("name") + "_errors");
+                            for (var i = 0; i < invalidInput.messages.length; i++) {
+                                list.append("<li>" + invalidInput.messages[i] + "</li>");
+                            }
+
+                        }
+                    }
+                });
+
+                // Now we have a validateResult! Let's check it!
+                if (validateResult.valid) {
+                    alert("Woooo! You passed the validation!");
+                }
+
+            });
+
+        });
+    
+    </script>
+</body>
+</html>
