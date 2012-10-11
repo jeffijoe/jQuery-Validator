@@ -1,6 +1,6 @@
 /*
 File: jQuery.IsEmpty.js
-Author: Jeff Hansen
+Author: Jeff Hansen (Jeffijoe) - Livesys.com
 Description: Check if a field is empty - handles placeholders.
 */
 (function($){
