@@ -22,7 +22,7 @@ And you wish to validate it now. All the requirements have already been declared
         // SUCCESS!
     }
 
-This can be extended, please reffer to the demos.
+This can be extended, please reffer to the demos. Also, you can (**and absolutely should**) use the validate on a collection of input elements!
 
 All the messages can be customized for each individual field, as well as for all fields at once.
 
