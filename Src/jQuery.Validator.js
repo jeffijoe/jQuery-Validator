@@ -1,6 +1,6 @@
 /*
 	File: jQuery.Validator.js
-	Version: 1.3.2
+	Version: 1.3.3
 	Author: Jeff Hansen (Jeffijoe) - Livesys.com
 	jQuery: Tested with v1.8.2
 	Description: Formless validation of input elements
@@ -53,8 +53,8 @@
             // Let's get the data of this input.
             var data = $this.data();
 
-            // Is this field required?
-            if (data.required != undefined && data.required) {
+            // Should we validate this field? (the required check is for legacy purposes.)
+            if ((data.required) || (data.validate)) {
                 // Create an Invalid Input object
                 var invalidInput = { messages: [] },
 
