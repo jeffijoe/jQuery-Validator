@@ -68,7 +68,7 @@ If you want to customize your validator even further, you can pass the Validate 
         Return true if it passed validation, false if not. The function takes a param object:
             - [object] paramObject: Object to read from and write to.
                 - [object] input (read): The current field being validated. This is for you to validate upon.
-                - [string] errorMessage (write): If false is returned, what error should be used?
+                - [string] message (write): If false is returned, what error should be used?
         
         - [function] onFieldValidated(field, passed, invalidObject)
         Callback function that gets called once per field validation.
