@@ -79,8 +79,7 @@ If you want to customize your validator even further, you can pass the Validate 
         - [function] onFieldValidated(field, passed, invalidObject)
         Callback function that gets called once per field validation.
         "passed" represents its validation result. True if the field
-        passed validation, false if not. If passed is false, an
-        invalidInput is also passed.
+        passed validation, false if not.
             - [object] field: jQuery object representing the field that was
             being validated.
             
@@ -88,15 +87,18 @@ If you want to customize your validator even further, you can pass the Validate 
             
             - [object] invalidObject: If passed is false, an invalidObject is also
             passed, containing all the validation messages for that field, as
-            well as the field itself.
+            well as the field itself (see invalidInputs below, the properties are the same).
     
     Return:
         - [bool/object] True/false, or Object - depending on the configuration.
             - [bool] valid: Was all inputs valid?
             
-            - [object] validInputs: Collection of inputs that passed validation.
-            
-            - [object] invalidInputs: Collection of inputs that failed validation.
+            - [array] validInputs: Collection of inputs that passed validation.
+                - [object] invalidObject: An object containing the element that failed
+                validation, as well as the error messages.
+                    - [object] elem: The input field (wrapped with jQuery) that failed validation.
+                    - [array of string] messages: The error messages.
+            - [array] invalidInputs: Collection of inputs that failed validation.
             - [array of string] messages: Array of error messages
             
             - [object] elem: jQuery Input Field
