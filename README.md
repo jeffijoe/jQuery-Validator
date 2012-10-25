@@ -51,8 +51,8 @@ If you want to customize your validator even further, you can pass the Validate 
         
         - [int] maxLength: Same applies to maxLength as to minLength
         
-	- [string] regex: A global regex test all elements must pass
-
+    	- [string] regex: A global regex test all elements must pass
+    
         - [string/object] noInlineErrors: Selector/collection of elements
         that wont display inline errors
         
