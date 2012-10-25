@@ -22,6 +22,12 @@ And you wish to validate it now. All the requirements have already been declared
         // SUCCESS!
     }
 
+If you are validating a field that is not necesarily required, but does have a required format, use 
+
+    <input type="text" data-validate="true" data-.... />
+
+This is usefull for, say, phone fields that are not required, but where you want to validate the input anyways, if it is present.
+
 This can be extended, please reffer to the demos. Also, you can (**and absolutely should**) use the validate on a collection of input elements!
 
 All the messages can be customized for each individual field, as well as for all fields at once.
