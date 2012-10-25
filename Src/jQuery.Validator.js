@@ -1,6 +1,6 @@
 /*
 	File: jQuery.Validator.js
-	Version: 1.3.3
+	Version: 1.3.4
 	Author: Jeff Hansen (Jeffijoe) - Livesys.com
 	jQuery: Tested with v1.8.2
 	Description: Formless validation of input elements
@@ -10,7 +10,6 @@
 	as parameter explanation: 
 	https://github.com/Livesys/jQuery-Validator
 */
-
 (function ($) {
     // The Validate Function
     jQuery.fn.Validate = function (options) {
@@ -67,7 +66,7 @@
                 // Create onFocus event
                 onFocus = function () {
                     // Replace error value with the entered value
-                    if (inlineErrors) {
+                    if (inlineErrors && !$(this).is(config.noInlineErrors)) {
                         // Set value to what it was before
                         if ($(this).data("current_value") == $(this).attr("placeholder"))
                             $(this).val("");
