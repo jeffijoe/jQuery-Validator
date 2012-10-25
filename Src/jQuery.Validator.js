@@ -1,6 +1,6 @@
 /*
 	File: jQuery.Validator.js
-	Version: 1.3.1
+	Version: 1.3.2
 	Author: Jeff Hansen (Jeffijoe) - Livesys.com
 	jQuery: Tested with v1.8.2
 	Description: Formless validation of input elements
@@ -21,6 +21,7 @@
             required: false, // Are all fields required?
             minLength: 1, // Minimum length in the field?
             maxLength: 0, // Maximum length in the field?
+            regex: null, // Do all fields need to pass a regex test?
             selectTextOnFocus: false, // Select all text when focusing a field displaying an error?
             customChecks: [], // Are there any custom checks you'd like to do? (Array of functions)
             noInlineErrors: "", // Any fields who should not display inline errors?
@@ -171,10 +172,10 @@
                     }
                 }
 
-                // Regex check (at this point, only assignable on the data level)
-                if (data.regex != undefined) {
+                // Regex check
+                if (data.regex != undefined || config.regex != null) {
                     // If the value does not match the regex, its a fail.
-                    if (!new RegExp(data.regex).test($this.val())) {
+                    if (!new RegExp(data.regex || config.regex).test($this.val())) {
                         thisValid = false;
                         invalidInput.messages.push(data.msg_regex || config.msg_regex);
                     }
