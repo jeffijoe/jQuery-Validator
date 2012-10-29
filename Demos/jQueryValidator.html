@@ -46,7 +46,7 @@
         <div>
             <label for="username">
                 Desired Username</label><br />
-            <input type="text" name="username" id="username" data-required="true" data-lengthreq="4-16" data-invalidchars="\/@€%&)(=?" data-msg_empty="Please enter a username" />
+            <input type="text" name="username" id="username" data-required="true" data-lengthreq="4-16" data-invalidchars="\/@ï¿½%&)(=?" data-msg_empty="Please enter a username" />
             <span class="errorlabel"></span>
         </div>
         <div>
@@ -87,7 +87,7 @@
                 var validateResult = $("INPUT").Validate({
                     returnBool: false,                  // We want an object returned
                     errorClass: "error",                // We want to apply our error class when invalid
-                    onFieldValidated: function (field, passed, invalidInput) { // Callback function for each field validation
+                    onFieldValidated: function (field, passed, invalidObject) { // Callback function for each field validation
                         // ------ 
                         // NOTE: 
                         // Everything in this callback is not required - it's just something you
@@ -102,13 +102,13 @@
                         // Show error label for this field, if it didnt pass
                         if (!passed) {
                             // Change text and show
-                            var firstMessage = invalidInput.messages[0];
+                            var firstMessage = invalidObject.messages[0];
                             field.parent().find(".errorlabel").html(firstMessage).show();
                             // Add all errors to error list
                             $("#allerrors").show().append('<li>The ' + field.attr("name") + ' field has the following errors:<ul id="' + field.attr("name") + '_errors"></ul></li>');
                             var list = $("#" + field.attr("name") + "_errors");
-                            for (var i = 0; i < invalidInput.messages.length; i++) {
-                                list.append("<li>" + invalidInput.messages[i] + "</li>");
+                            for (var i = 0; i < invalidObject.messages.length; i++) {
+                                list.append("<li>" + invalidObject.messages[i] + "</li>");
                             }
 
                         }
