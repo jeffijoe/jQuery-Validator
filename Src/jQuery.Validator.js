@@ -1,6 +1,6 @@
 /*
 	File: jQuery.Validator.js
-	Version: 1.3.4
+	Version: 1.3.5
 	Author: Jeff Hansen (Jeffijoe) - Livesys.com
 	jQuery: Tested with v1.8.2
 	Description: Formless validation of input elements
@@ -44,18 +44,50 @@
             e.preventDefault();
         };
 
+
         // Lets loop through all the inputs that shall be validated.
         $(this).each(function () {
+            // Function for getting the value to validate upon
+            function getVal(elem) {
+                if (!elem)
+                    elem = $this;
+                // The value
+                var val;
+                if (!data.validateon)
+                    val = elem.val();
+                else if (data.validateon == "html")
+                    val = elem.html();
+                else if (data.validateon == "text")
+                    val = elem.text();
+                else val = elem.prop(data.validateon);
+                return val;
+            }
+            
+            // Function for setting the value
+            function setVal(val, elem) {
+                if (!elem)
+                    elem = $this;
+
+                if (!data.validateon)
+                    elem.val(val);
+                else if (data.validateon == "html")
+                    elem.html(val);
+                else if (data.validateon == "text")
+                    elem.text(val);
+                else elem.prop(data.validateon,val);
+            }
+
             // We're working with THIS input!
             var $this = $(this);
-
             // Let's get the data of this input.
             var data = $this.data();
+
+            
 
             // Should we validate this field? (the required check is for legacy purposes.)
             if ((data.required) || (data.validate)) {
                 // Create an Invalid Input object
-                var invalidInput = { messages: [] },
+                var invalidObject = { messages: [] },
 
                 // Is THIS field invalid?
                 thisValid = true,
@@ -69,9 +101,9 @@
                     if (inlineErrors && !$(this).is(config.noInlineErrors)) {
                         // Set value to what it was before
                         if ($(this).data("current_value") == $(this).attr("placeholder"))
-                            $(this).val("");
+                            setVal("",$(this));
                         else
-                            $(this).val($(this).data("current_value"));
+                            setVal($(this).data("current_value"),$(this));
 
                         // If selectTextOnFocus is true, select the text after removing error text
                         if ((data.selecttextonfocus || config.selectTextOnFocus) && $(this).data("showing_error"))
@@ -105,7 +137,7 @@
                 // If we're using Inline Errors, check it.
                 if (inlineErrors && data.showing_error) {
                     // Set field value to what it was before, to validate it again
-                    $this.val(data.current_value);
+                    setVal(data.current_value);
 
                     // We're not showing an error anymore
                     data.showing_error = false;
@@ -117,15 +149,16 @@
                     thisValid = false;
 
                     // Add error message to array
-                    invalidInput.messages.push(data.msg_empty || config.msg_empty);
+                    invalidObject.messages.push(data.msg_empty || config.msg_empty);
                 }
 
                 // Length Check
                 var doLengthCheck = false,
                 minLength,
-                maxLength;
-
-                // First, determine what setting we're using - config or data?
+                maxLength,
+                val = getVal();
+                
+                //  Determine what setting we're using - config or data?
                 if (data.lengthreq != undefined) {
                     // Get the length requirements
                     doLengthCheck = true;
@@ -140,30 +173,37 @@
                     minLength = config.minLength;
                     maxLength = config.maxLength;
                 }
+                
+                // Only check length if the field has a value
+                if (data.validate && val.length == 0) {
+                    doLengthCheck = false;
+                }
+                
                 // Do the actual length check, if any.
-                if (doLengthCheck && ($this.val().length < minLength || $this.val().length > maxLength)) {
+                if (doLengthCheck && (val.length < minLength || val.length > maxLength)) {                    
                     var errMsg = (data.msg_lengthreq || config.msg_lengthreq).replace("$MINLEN$", minLength).replace("$MAXLEN$", maxLength);
-                    invalidInput.messages.push(errMsg);
+                    invalidObject.messages.push(errMsg);
                     thisValid = false;
                 }
-
+                
                 // Char check
                 if (data.invalidchars != undefined || config.invalidChars != undefined) {
                     // What are we testing against?
                     var chars = (data.invalidchars || config.invalidChars);
-
+                    var val = getVal();
                     // Loop, for gods sake, LOOOOOP!
                     for (var i = 0; i < chars.length; i++) {
                         // Get the char we're testing for
                         var thisChar = chars.charAt(i);
 
                         // Test
-                        if ($this.val().indexOf(thisChar) != -1) {
+                        
+                        if (val.indexOf(thisChar) != -1) {
                             // The field contains this char, mark it as invalid
                             thisValid = false;
 
                             // Push invalid message onto the messages stack
-                            invalidInput.messages.push((data.msg_invalidchars || config.msg_invalidchars).replace("$CHARS$", data.invalidchars));
+                            invalidObject.messages.push((data.msg_invalidchars || config.msg_invalidchars).replace("$CHARS$", data.invalidchars));
 
                             // Break the loop
                             break;
@@ -174,9 +214,9 @@
                 // Regex check
                 if (data.regex != undefined || config.regex != null) {
                     // If the value does not match the regex, its a fail.
-                    if (!new RegExp(data.regex || config.regex).test($this.val())) {
+                    if (!new RegExp(data.regex || config.regex).test(getVal())) {
                         thisValid = false;
-                        invalidInput.messages.push(data.msg_regex || config.msg_regex);
+                        invalidObject.messages.push(data.msg_regex || config.msg_regex);
                     }
                 }
 
@@ -188,7 +228,7 @@
                         var param = { input: $this };
                         if (!thisCheck(param)) {
                             thisValid = false;
-                            invalidInput.messages.push(param.message);
+                            invalidObject.messages.push(param.message);
                         }
                     });
                 }
@@ -197,8 +237,8 @@
                 if (!thisValid) {
                     // All is not valid!
                     allValid = false;
-                    invalidInput.elem = $this;
-                    returnObj.invalidInputs.push(invalidInput);
+                    invalidObject.elem = $this;
+                    returnObj.invalidInputs.push(invalidObject);
 
                     // Set the text of the field to the error message if we're using inline errors,
                     // and if this field is not excluded from using inline errors
@@ -210,7 +250,7 @@
                         data.showing_error = true;
 
                         // Set value
-                        $this.val(invalidInput.messages[0]);
+                        setVal(invalidObject.messages[0]);
                     }
 
                     // Unbind and Bind the mouseUp event - Webkit Bugfix
@@ -232,7 +272,7 @@
                 }
                 // Call the onFieldValidated callback
                 if (config.onFieldValidated != undefined)
-                    config.onFieldValidated($this, thisValid, invalidInput);
+                    config.onFieldValidated($this, thisValid, invalidObject);
             }
         });
         // Set the valid result on the returnObject
