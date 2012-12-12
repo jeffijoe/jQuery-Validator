@@ -1,6 +1,6 @@
 /*
 	File: jQuery.Validator.js
-	Version: 1.3.5
+	Version: 1.4.6
 	Author: Jeff Hansen (Jeffijoe) - Livesys.com
 	jQuery: Tested with v1.8.2
 	Description: Formless validation of input elements
@@ -212,12 +212,44 @@
                 }
 
                 // Regex check
-                if (data.regex != undefined || config.regex != null) {
+                if (data.regex != undefined || config.regex != undefined) {
                     // If the value does not match the regex, its a fail.
                     if (!new RegExp(data.regex || config.regex).test(getVal())) {
                         thisValid = false;
                         invalidObject.messages.push(data.msg_regex || config.msg_regex);
                     }
+                }
+
+                // Use the plugins
+                if (jQuery.Validator._validatorPlugins.length > 0) {
+                    // Loop the list
+                    jQuery.each(jQuery.Validator._validatorPlugins, function () {
+                        // Short reference
+                        $plugin = this;
+
+                        // Check if the config or data obj contains the key
+                        if (data[$plugin.dataProp] != undefined || config[$plugin.configProp] != undefined) {
+                            // Get the property & error message values
+                            var propValue = data[$plugin.dataProp] != undefined ? data[$plugin.dataProp] : config[$plugin.configProp];
+                            var errorMessage = data[$plugin.messageDataProp] || config[$plugin.messageConfigProp];
+
+                            // Param object
+                            var params = {
+                                input: $this, // Input being validated
+                                propertyValue: propValue, // The value of the property
+                                configObject: config, // The config object
+                                dataObject:data // The data object of the current input
+                            };
+
+                            // Run the method
+                            var passed = $plugin.method(params);
+                            // Did the method pass?
+                            if (!passed) {
+                                thisValid = false;
+                                invalidObject.messages.push(errorMessage);
+                            }
+                        }
+                    });
                 }
 
                 // Do the custom checks
@@ -290,21 +322,40 @@
     // Clear Validation data
     jQuery.fn.Validate_Clear = function (clearFields) {
         // Get this.
-        var $this = $(this);
+        return $(this).each(function() {
+            // Unbind events
+            var $this = $(this);
+            $this.unbind("mouseup.Validator focus.Validator");
 
-        // Unbind events
-        $this.unbind("mouseup.Validator focus.Validator");
+            // Clear data
+            $this.data({
+                showing_error: false,
+                current_value: ""
+            });
 
-        // Clear data
-        $this.data({
-            showing_error: false,
-            current_value: ""
+            // Remove error class
+            $this.removeClass("error");
+
+            // Check if we should clear fields
+            if (clearFields) {
+                $this.val("");
+            }
         });
 
-        // Check if we should clear fields
-        if (clearFields) {
-            $this.val("");
+        
+    };
+
+    // The Validator Object, for extending the validator
+    // with custom checks (plugin-style)
+    jQuery.Validator = {
+        // Internal list of validator plugins
+        _validatorPlugins: [],
+
+        // The Extend method - adds the plugin to the list.
+        // Takes a ValidatorPlugin Object as input
+        Extend: function (validatorPlugin) {
+            // Push the plugin to the list
+            this._validatorPlugins.push(validatorPlugin);
         }
-        return $this;
     };
 })(jQuery);
