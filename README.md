@@ -3,6 +3,15 @@ jQuery-Validator
 
 A formless validation plugin for all kinds of validation - even your own!
 
+Features
+========
+
+* Multitude of validation methods
+* Formless (can be used anywhere, regardless of markup structure)
+* Built-in error messages showing in placeholder (if you want) -IE too.
+* [NEW] Extend with your own validation plugins! (See Demos/jQueryValidatorExtend.html for an example)
+
+
 Simplest use case
 ==================
 
