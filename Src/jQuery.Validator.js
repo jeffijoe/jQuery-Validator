@@ -84,8 +84,8 @@
 
             
 
-            // Should we validate this field? (the required check is for legacy purposes.)
-            if ((data.required) || (data.validate)) {
+            // Should we validate this field?
+            if ((config.required) || (data.required) || (data.validate)) {
                 // Create an Invalid Input object
                 var invalidObject = { messages: [] },
 
