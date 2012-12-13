@@ -106,12 +106,12 @@ If you want to customize your validator even further, you can pass the Validate 
         - [bool/object] True/false, or Object - depending on the configuration.
             - [bool] valid: Was all inputs valid?
             
-            - [array] validInputs: Collection of inputs that passed validation.
+            - [array] invalidInputs: Collection of inputs (as invalidObject) that passed validation.
                 - [object] invalidObject: An object containing the element that failed
                 validation, as well as the error messages.
                     - [object] elem: The input field (wrapped with jQuery) that failed validation.
                     - [array of string] messages: The error messages.
-            - [array] invalidInputs: Collection of inputs that failed validation.
+            - [array] validInputs: Collection of inputs (as jQuery Objects) that passed validation.
             - [array of string] messages: Array of error messages
             
             - [object] elem: jQuery Input Field
