@@ -38,6 +38,7 @@
         returnObj.valid = allValid;
         returnObj.validInputs = [];
         returnObj.invalidInputs = [];
+        returnObj.messages = [];
 
         // WebKit Bugfix for text selection
         var onMouseUp = function (e) {
@@ -272,6 +273,9 @@
                     invalidObject.elem = $this;
                     returnObj.invalidInputs.push(invalidObject);
 
+                    // Aggregate all error messages to a single collection
+                    returnObj.messages = returnObj.messages.concat(invalidObject.messages);
+                    
                     // Set the text of the field to the error message if we're using inline errors,
                     // and if this field is not excluded from using inline errors
                     if (inlineErrors && !data.showing_error && !$this.is(config.noInlineErrors)) {
