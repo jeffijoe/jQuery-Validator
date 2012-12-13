@@ -115,3 +115,16 @@ If you want to customize your validator even further, you can pass the Validate 
             - [array of string] messages: Array of error messages
             
             - [object] elem: jQuery Input Field
+            
+
+The Plugin structure can be found in the jQuery.Validator.Email.js file - the paramObj passed to the validator 
+method contains the following:
+
+    ```javascript
+    var params = {
+        input: $this, // Input being validated
+        propertyValue: propValue, // The value of the property
+        configObject: config, // The config object of the current validation routine.
+        dataObject:data // The data object of the current input. ( same as input.data() )
+    };
+    ```
