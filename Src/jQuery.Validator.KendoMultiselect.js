@@ -24,11 +24,11 @@ jQuery(function () {
     $.Validator.Extend({
         dataProp: "k_multiselect", // The property on the element
         configProp: "isKendoMultiselect", // The property on the config.
-        messageDataProp: "msg_invalid-selection", // The error message property on the element
-        messageConfigProp: "msg_invalidselection", // The error message property on the config
+        messageDataProp: "msg_invalid_selection", // The error message property on the element
+        messageConfigProp: "msg_invalidSelection", // The error message property on the config
         method: function (paramObj) {
             // The property is a bool, indicating if this is a kendo multiselect
-            if (paramObj.propertyValue) {
+            if (paramObj.propertyValue) {                
                 // Get the value of the multiselect
                 var value = paramObj.dataObject["kendoMultiSelect"].value();
 

@@ -35,7 +35,7 @@
         returnObj = {};
 
         // Initialize returnObj
-        returnObj.valid = allValid;
+        returnObj.valid = true;
         returnObj.validInputs = [];
         returnObj.invalidInputs = [];
         returnObj.messages = [];
@@ -144,8 +144,23 @@
                     data.showing_error = false;
                 }
 
-                // Check if the field is required, and if it is, check if it's empty.
-                if ((data.required || config.required) && $this.isEmpty()) {
+                // Required Test
+                
+                // Define the initial assumption: Everything is required.s
+                var isRequired = true;
+                
+                // If the configuration says that everything is not required,
+                // set required to false.
+                if (config.required == false)
+                    isRequired = false;
+                
+                // Since we want the Data to override the config, we test if
+                // the data.required is undefined, and if its not, use that value.
+                if (data.required != undefined)
+                    isRequired = data.required;
+                
+                // Test if the field is required, and if it is empty.
+                if (isRequired && $this.isEmpty()) {
                     // All are not valid anymore.
                     thisValid = false;
 
@@ -176,7 +191,7 @@
                 }
                 
                 // Only check length if the field has a value
-                if (data.validate && val.length == 0) {
+                if (data.validate && (val == undefined || val.length == 0)) {
                     doLengthCheck = false;
                 }
                 
