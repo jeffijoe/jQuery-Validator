@@ -226,7 +226,7 @@
                     // Loop the list
                     jQuery.each(jQuery.Validator._validatorPlugins, function () {
                         // Short reference
-                        $plugin = this;
+                        var $plugin = this;
 
                         // Check if the config or data obj contains the key
                         if (data[$plugin.dataProp] != undefined || config[$plugin.configProp] != undefined) {
