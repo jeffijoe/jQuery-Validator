@@ -7,6 +7,9 @@
     
     IMPORTANT: Currently only works when the multiselect instance
     is stored in the kendoMultiSelect data property.
+
+    In order for it to function properly at this point,
+    you need to add data-required="false" to the select tag.
 */
 jQuery(function () {
     // Apply Error Class
