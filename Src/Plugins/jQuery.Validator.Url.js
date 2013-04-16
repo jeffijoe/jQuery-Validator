@@ -1,6 +1,6 @@
 ﻿/*
 	File: jQuery.Validator.Url.js
-	Version: 0.1 (jQuery.Validator 1.4.6)
+	Version: 0.2 (jQuery.Validator 1.4.6)
 	Author: Jeff Hansen (Jeffijoe) - Livesys.com
 	jQuery: Tested with v1.9.1
 	Description: URL Validation.
