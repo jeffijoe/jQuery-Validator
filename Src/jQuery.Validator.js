@@ -293,7 +293,7 @@
                     
                     // Set the text of the field to the error message if we're using inline errors,
                     // and if this field is not excluded from using inline errors
-                    if (inlineErrors && !data.showing_error && !$this.is(config.noInlineErrors)) {
+                    if (inlineErrors && !data.showing_error && !$this.is(config.noInlineErrors) && !$this.is("input[type=hidden]")) {
                         // Get the current value of the text, so we can restore it on focus!
                         data.current_value = $this.val();
 
