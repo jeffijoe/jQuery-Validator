@@ -1,6 +1,6 @@
 /*
 	File: jQuery.Validator.js
-	Version: 1.4.6
+	Version: 1.4.7
 	Author: Jeff Hansen (Jeffijoe) - Livesys.com
 	jQuery: Tested with v1.8.2
 	Description: Formless validation of input elements
