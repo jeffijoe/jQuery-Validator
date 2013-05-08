@@ -54,8 +54,12 @@
                     elem = $this;
                 // The value
                 var val;
-                if (!data.validateon)
-                    val = elem.val();
+                if (!data.validateon) {
+                    if(elem.is("TEXTAREA"))
+                        val = elem.text();
+                    else
+                        val = elem.val();
+                }
                 else if (data.validateon == "html")
                     val = elem.html();
                 else if (data.validateon == "text")
@@ -78,6 +82,14 @@
                 else elem.prop(data.validateon,val);
             }
 
+            // Given 2 values, local takes precedence over global, 
+            // but only if local is defined.
+            function getPropertyValue(global, local) {
+                if (local != undefined)
+                    return local;
+                return global;
+            }
+
             // We're working with THIS input!
             var $this = $(this);
             // Let's get the data of this input.
@@ -94,7 +106,7 @@
                 thisValid = true,
 
                 // Are we using inline errors?
-                inlineErrors = (data.use_inline_errors || config.useInlineErrors),
+                inlineErrors = getPropertyValue(config.useInlineErrors, data.use_inline_errors),
 
                 // Create onFocus event
                 onFocus = function () {
@@ -146,20 +158,8 @@
 
                 // Required Test
                 
-                // Define the initial assumption: Everything is required.s
-                var isRequired = true;
-                
-                // If the configuration says that everything is not required,
-                // set required to false.
-                if (config.required == false)
-                    isRequired = false;
-                
-                // Since we want the Data to override the config, we test if
-                // the data.required is undefined, and if its not, use that value.
-                if (data.required != undefined)
-                    isRequired = data.required;
-                
                 // Test if the field is required, and if it is empty.
+                var isRequired = getPropertyValue(config.required, data.required);
                 if (isRequired && $this.isEmpty()) {
                     // All are not valid anymore.
                     thisValid = false;
