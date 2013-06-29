@@ -10,7 +10,18 @@
 	as parameter explanation: 
 	https://github.com/Livesys/jQuery-Validator
 */
+
 (function ($) {
+	// Utility function for determining if an input field is truly empty,
+	// or if the universe is playing a trick on you.
+	jQuery.fn.isEmpty = function () {
+		var txt = $.trim(this.val());
+		if (txt == this.attr("placeholder") || txt == "") {
+			return true;
+		}
+		return false;
+	};
+
 	// The Validate Function
 	jQuery.fn.Validate = function (options) {
 		// Defaults
@@ -176,8 +187,8 @@
 				
 				//  Determine what setting we're using - config or data?
 				if (data.lengthreq != undefined) {
-				    // Get the length requirements
-				    data.lengthreq = String(data.lengthreq);
+					// Get the length requirements
+					data.lengthreq = String(data.lengthreq);
 					doLengthCheck = true;
 					var lengthReqArr = (data.lengthreq.indexOf("-") != -1)
 						? data.lengthreq.split("-")
