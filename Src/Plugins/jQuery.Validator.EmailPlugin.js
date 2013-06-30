@@ -21,7 +21,7 @@ jQuery(function () {
 			// Obviously, if it wasnt, the property wouldnt be there, but oh well. :P
 			if (paramObj.propertyValue)
 				// E-Mail regex check
-				if (!new RegExp(/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/).test(paramObj.input.val())) {
+				if (!new RegExp(/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/i).test(paramObj.input.val())) {
 					return false;
 				}
 			// Success, return true!
