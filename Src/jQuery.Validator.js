@@ -259,7 +259,9 @@
 						if (data[$plugin.dataProp] != undefined || config[$plugin.configProp] != undefined) {
 							// Get the property & error message values
 							var propValue = data[$plugin.dataProp] != undefined ? data[$plugin.dataProp] : config[$plugin.configProp];
-							var errorMessage = data[$plugin.messageDataProp] || config[$plugin.messageConfigProp];
+							var errorMessage = data[$plugin.messageDataProp]
+											   || config[$plugin.messageConfigProp]
+											   || $plugin.defaultErrorMessage;
 
 							// Param object
 							var params = {
