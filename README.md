@@ -15,10 +15,9 @@ Features
 Simplest use case
 ==================
 
-You need to include the jQuery library, as well as the IsEmpty plugin (quick utility function, found in the Src folder), and the actual Validator plugin.
+You need to include the jQuery library, and the actual Validator plugin.
 ```html
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
-    <script type="text/javascript" src="js/jQuery.IsEmpty.js"></script>
     <script type="text/javascript" src="js/jQuery.Validator.js"></script>
 ```
 
