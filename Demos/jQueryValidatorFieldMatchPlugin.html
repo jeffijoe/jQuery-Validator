@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>jQuery.Validator FieldMatch Plugin Example</title>
+    <script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
+    <script type="text/javascript" src="../Src/jQuery.Validator.js"></script>
+    <script type="text/javascript" src="../Src/Plugins/jQuery.Validator.FieldMatch.js"></script>
+    <style type="text/css">
+        
+        INPUT[type="text"], INPUT[type="password"]
+        {
+            width: 400px;
+            border: 1px solid #000000;
+            padding: 2px;
+        }
+        
+        INPUT.error
+        {
+            color:red;
+            border-color:red;
+        }
+        
+    </style>
+</head>
+<body>
+    <div>
+        <label for="password">Password</label>
+        <br />
+        <input type="password" data-required="true" id="password"/>
+        <br />
+        <label for="password">Password again</label>
+        <br />
+        <input type="password" data-required="true" data-mustmatch="#password" data-msg_invalidmatch="Passwords did not match." id="passwordAgain"/>
+        <button>Submit</button>
+    </div>
+    <script type="text/javascript">
+        $(function () {
+            // Bind on Click event for button
+            $("button").click(function () {
+                // Validate
+                var validated = $("INPUT").Validate({
+                    errorClass: "error",
+                    onFieldValidated: function (field,passed,errorInfo) {
+                        if (!passed)
+                            alert(errorInfo.messages[0]);
+                    }
+                });
+
+                if (validated)
+                    alert("Yaaay! Validated!");
+            });
+
+        });
+    </script>
+</body>
+</html>
