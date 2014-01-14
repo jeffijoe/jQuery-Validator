@@ -1,6 +1,6 @@
 /*
 	File: jQuery.Validator.js
-	Version: 1.4.7
+	Version: 1.5.8
 	Author: Jeff Hansen (Jeffijoe) - Livesys.com
 	jQuery: Tested with v1.8.2
 	Description: Formless validation of input elements
@@ -275,7 +275,12 @@
 							var passed = $plugin.method(params);
 							// Did the method pass?
 							if (!passed) {
-								thisValid = false;
+							    thisValid = false;
+
+							    // Run message mutator.
+							    if ($plugin.messageMutator)
+							        errorMessage = $plugin.messageMutator(params, errorMessage);
+
 								invalidObject.messages.push(errorMessage);
 							}
 						}

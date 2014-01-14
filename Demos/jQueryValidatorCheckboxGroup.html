@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>jQuery.Validator Example - CheckBox Group Plugin</title>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+    <script type="text/javascript" src="../Src/jQuery.Validator.js"></script>
+    <script type="text/javascript" src="../Src/Plugins/jQuery.Validator.CheckboxGroup.js"></script>
+    <style>
+        INPUT[type="text"], INPUT[type="password"] {
+            width: 400px;
+            border: 1px solid #000000;
+            padding: 2px;
+        }
+
+        INPUT.error {
+            color: red;
+            border-color: red;
+        }
+
+        #my-checkboxes.error {
+            border: 1px solid red;
+        }
+    </style>
+
+</head>
+    <body>
+        
+
+        <h1>Checkbox Group Plugin Demo</h1>
+
+        <div id="misc">
+            Just showing how markup doesen't really matter:
+            <input type="text" data-required="true" />
+        </div>
+        <div id="my-checkboxes" data-checkboxgroup="1" data-validate="true" data-msg_checkboxgroup="You need to pick atleast $VALUE$ fruit." >
+            <div>
+                <input type="checkbox" /> Apple
+            </div>
+            <div>
+                <input type="checkbox" /> Banana
+            </div>
+            <div>
+                <input type="checkbox" /> Pear
+            </div>
+        </div>
+        <button>Validate!</button>
+
+        <script type="text/javascript">
+            $(function () {
+                // Bind on Click event for button
+                $("button").click(function () {
+                    // Validate
+                    // Note how I use an INPUT selector, as well as the container for our checkboxes.
+                    var result = $("#misc INPUT, #my-checkboxes").Validate({
+                        returnBool:false, // We want more info.
+                        errorClass: "error", // Apply the error class to the INPUT field on error
+                        useInlineErrors:true // We want errors to display inside the field, so no extra markup is required
+                    });
+
+                    if (result.valid)
+                        alert("Yaaay! Validated!");
+                    else {
+                        $.each(result.messages, function() {
+                            alert(this);
+                        });
+                    }
+                });
+            });
+        </script>
+    </body>
+</html>
