@@ -125,5 +125,6 @@ method contains the following:
         propertyValue: propValue, // The value of the property
         configObject: config, // The config object of the current validation routine.
         dataObject:data // The data object of the current input. ( same as input.data() )
+        messageMutator: function(paramObj, errorMessage) { return newErrorMesage ...} // A message mutator function for changing the error message before displaying it. See the CheckboxGroup plugin for an example.
     };
 ```
