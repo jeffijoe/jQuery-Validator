@@ -171,7 +171,8 @@
 				
 				// Test if the field is required, and if it is empty.
 				var isRequired = getPropertyValue(config.required, data.required);
-				if (isRequired && $this.isEmpty()) {
+        var isEmpty = $this.isEmpty();
+				if (isRequired && isEmpty) {
 					// All are not valid anymore.
 					thisValid = false;
 
@@ -243,8 +244,10 @@
 				if (data.regex != undefined || config.regex != undefined) {
 					// If the value does not match the regex, its a fail.
 					if (!new RegExp(data.regex || config.regex).test(getVal())) {
-						thisValid = false;
-						invalidObject.messages.push(data.msg_regex || config.msg_regex);
+            if(!isEmpty || data.required) {
+              thisValid = false;
+              invalidObject.messages.push(data.msg_regex || config.msg_regex);
+            }
 					}
 				}
 

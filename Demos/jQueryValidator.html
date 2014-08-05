@@ -50,15 +50,15 @@
             <span class="errorlabel"></span>
         </div>
         <div>
-            <label for="username">
+            <label for="password">
                 Desired Password</label><br />
             <input type="password" name="password" id="password" data-required="true" data-lengthreq="6-30" data-msg_lengthreq="Your password must be between $MINLEN$ and $MAXLEN$ characters long" data-msg_empty="Please enter a password!" />
             <span class="errorlabel"></span>
         </div>
         <div>
-            <label for="username">
-                E-Mail address</label><br />
-            <input type="text" name="email" id="email" data-regex="^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$" data-required="true" data-msg_regex="This is not a valid E-mail address!" />
+            <label for="email">
+                E-Mail address (optional)</label><br />
+            <input type="text" name="email" id="email" data-regex="^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$" data-validate="true" data-msg_regex="This is not a valid E-mail address!" />
             <span class="errorlabel"></span>
         </div>
         <div>
