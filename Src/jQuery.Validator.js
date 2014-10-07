@@ -66,10 +66,7 @@
 				// The value
 				var val;
 				if (!data.validateon) {
-					if(elem.is("TEXTAREA"))
-						val = elem.text();
-					else
-						val = elem.val();
+					val = elem.val();
 				}
 				else if (data.validateon == "html")
 					val = elem.html();
